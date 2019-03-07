@@ -331,12 +331,15 @@ namespace Microsoft.Bot.Builder.Planning
                 }
             }
 
-            // Create DialogContext
-            this.runDialogs.Add(this);
-
-            foreach (var rule in Rules)
+            if (runDialogs.GetDialogs().Count() == 0)
             {
-                rule.Steps.ForEach(s => dialogs.Add(s));
+                //Create DialogContext
+                this.runDialogs.Add(this);
+
+                foreach (var rule in Rules)
+                {
+                    rule.Steps.ForEach(s => dialogs.Add(s));
+                }
             }
 
             var dc = new DialogContext(runDialogs,
